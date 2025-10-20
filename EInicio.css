@@ -1,0 +1,283 @@
+body {
+  margin: 0;
+  font-family: 'Montserrat', Arial, sans-serif;
+  background: linear-gradient(to bottom, #026e94 0%, #185875 100%);
+  color: #fff;
+}
+.navbar {
+  background: #36a8c6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  border-radius: 0 0 36px 36px;
+}
+.navbar .logo {
+  display: flex;         /* Pone las imágenes una al lado de la otra */
+  align-items: center;   /* Las centra verticalmente */
+  gap: 10px;             /* Añade un espacio entre las dos imágenes */
+}
+
+/* Y añade esta regla nueva para controlar el tamaño */
+.navbar .logo img {
+  height: 60px;  /* ¡Ajusta esta altura como prefieras! */
+  width: auto;   /* Mantiene la proporción */
+}
+.navbar nav {
+  display: flex;
+  gap: 30px;
+}
+.navbar nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: 500;
+  transition: transform 0.2s ease-out; /* Corregido '0.2' a '0.2s' */
+}
+.navbar nav a:hover {
+  transform: translateY(-4px); /* <-- Se eleva 4 píxeles */
+}
+.navbar .actions {
+  display: flex;
+  gap: 15px;
+}
+.navbar .actions button, .navbar .lang {
+  background: #fff;
+  color: #179ec6;
+  border: none;
+  border-radius: 18px;
+  padding: 9px 24px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 3px;
+  transition: background .2s, color .2s;
+}
+.navbar .actions button:hover {
+  background: #179ec6;
+  color: #fff;
+}
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 40px 40px 40px;
+}
+.hero-content {
+  max-width: 600px;
+  transform: translateY(-50px);
+}
+.hero-content h1 {
+  font-size: 2.7em;
+  margin: 0 0 16px;
+  font-weight: 700;
+}
+
+.hero-content h1 span {
+  color: #fff;
+  background: #179ec6;
+  padding: 0 5px;
+  border-radius: 6px;
+  font-size: 1.1em;
+  white-space: nowrap;
+  display: inline-block; 
+  min-width: 320px;
+  text-align: left; 
+}
+.hero-content p {
+  font-size: 1.2em;
+  margin-bottom: 32px;
+  color: #e0eef8;
+}
+.search-bar {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 24px;
+}
+.search-bar input {
+  flex: 1;
+  padding: 14px 18px;
+  border-radius: 34px;
+  border: none;
+  font-size: 1em;
+}
+.buttongroup {
+  display: flex;
+  gap: 18px;
+}
+.buttongroup button {
+  background: #fff;
+  color: #185875;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 30px;
+  font-weight: bold;
+  font-size: 1.05em;
+  cursor: pointer;
+  transition: background .19s, color .2s;
+}
+.buttongroup button:hover {
+  background: #185875;
+  color: #fff;
+}
+.hero-img img {
+  max-width: 500px;
+  width: 100%
+}
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero-img {
+    align-self: center;
+    margin-top: 38px;
+  }
+}
+/* =======================
+   ESTILOS TUTORES (Convertido en Carrusel)
+   ======================= */
+
+.tutores-destacados {
+  background: #f9f9f9;
+  padding: 80px 40px;
+  text-align: center;
+}
+
+.subtitulo-seccion {
+  color: #185875;
+  font-weight: bold;
+  font-size: 1.1em;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.tutores-destacados h2 {
+  color: #222;
+  font-size: 2.5em;
+  margin: 0 0 16px;
+  font-weight: 700;
+}
+
+.descripcion-seccion {
+  color: #555;
+  font-size: 1.15em;
+  max-width: 650px;
+  margin: 0 auto 50px auto;
+}
+
+/* --- ESTILOS DEL CARRUSEL --- */
+.carousel-viewport {
+  max-width: 1199px; /* Mismo ancho que tu grid anterior */
+  margin: 0 auto;
+  overflow: hidden; /* Oculta las tarjetas fuera */
+  
+  /* Difumina los bordes para un look pro */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.carousel-track {
+  display: flex; /* Pone las tarjetas en una fila */
+  /* El ancho y la animación se aplican con JS */
+}
+
+/* Pausa la animación al pasar el cursor */
+.carousel-track:hover {
+  animation-play-state: paused !important;
+}
+
+/* --- ESTILOS DE LA TARJETA --- */
+.tutor-card {
+  background: #026e94;
+  color: #fff;
+  border-radius: 20px;
+  padding: 0;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  overflow: hidden;
+  text-align: left;
+  
+  /* --- NUEVO PARA CARRUSEL --- */
+  flex: 0 0 280px;  /* Ancho fijo de la tarjeta */
+  margin-right: 20px; /* Espacio entre tarjetas */
+}
+
+.tutor-card:hover {
+  transform: translateY(-8px) scale(1.05);
+}
+
+.tutor-foto {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 0;
+  border: none;
+  margin-bottom: 0;
+}
+
+.tutor-info {
+  padding: 24px;
+}
+
+.tutor-card h3 {
+  font-size: 1.6em;
+  margin: 0 0 5px 0;
+  font-weight: 700;
+  color: #fff;
+}
+
+.tutor-card > span {
+  display: none;
+}
+
+.tutor-info span {
+  font-size: 1em;
+  color: #e0eef8;
+  display: block;
+}
+
+.tutor-curso {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.05em;
+  transition: color 0.2s;
+}
+
+.tutor-curso:hover {
+  color: #e0eef8;
+}
+
+.tutor-curso img {
+  width: 26px;
+  height: 26px;
+}
+
+.tutor-materias, .btn-perfil {
+  display: none;
+}
+
+
+/* Responsividad (Móvil) */
+@media (max-width: 900px) {
+  /* Ya no necesitamos la regla .tutores-grid aquí */
+  
+  .carousel-viewport {
+    /* Quitamos el difuminado en móvil */
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  
+  .tutores-destacados h2 {
+    font-size: 2em;
+  }
+
+  .tutor-foto {
+    height: 300px;
+  }
+}
