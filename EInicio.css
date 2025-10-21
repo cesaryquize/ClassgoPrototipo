@@ -13,15 +13,14 @@ body {
   border-radius: 0 0 36px 36px;
 }
 .navbar .logo {
-  display: flex;         /* Pone las imágenes una al lado de la otra */
-  align-items: center;   /* Las centra verticalmente */
-  gap: 10px;             /* Añade un espacio entre las dos imágenes */
+  display: flex;         
+  align-items: center;   
+  gap: 10px;             
 }
 
-/* Y añade esta regla nueva para controlar el tamaño */
 .navbar .logo img {
-  height: 60px;  /* ¡Ajusta esta altura como prefieras! */
-  width: auto;   /* Mantiene la proporción */
+  height: 60px;  
+  width: auto;   
 }
 .navbar nav {
   display: flex;
@@ -32,10 +31,10 @@ body {
   text-decoration: none;
   font-size: 1.1em;
   font-weight: 500;
-  transition: transform 0.2s ease-out; /* Corregido '0.2' a '0.2s' */
+  transition: transform 0.2s ease-out;
 }
 .navbar nav a:hover {
-  transform: translateY(-4px); /* <-- Se eleva 4 píxeles */
+  transform: translateY(-4px); 
 }
 .navbar .actions {
   display: flex;
@@ -168,21 +167,18 @@ body {
 
 /* --- ESTILOS DEL CARRUSEL --- */
 .carousel-viewport {
-  max-width: 1199px; /* Mismo ancho que tu grid anterior */
+  max-width: 1199px; 
   margin: 0 auto;
-  overflow: hidden; /* Oculta las tarjetas fuera */
+  overflow: hidden; 
   
-  /* Difumina los bordes para un look pro */
   -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .carousel-track {
-  display: flex; /* Pone las tarjetas en una fila */
-  /* El ancho y la animación se aplican con JS */
+  display: flex;
 }
 
-/* Pausa la animación al pasar el cursor */
 .carousel-track:hover {
   animation-play-state: paused !important;
 }
@@ -197,10 +193,8 @@ body {
   transition: transform 0.2s;
   overflow: hidden;
   text-align: left;
-  
-  /* --- NUEVO PARA CARRUSEL --- */
-  flex: 0 0 280px;  /* Ancho fijo de la tarjeta */
-  margin-right: 20px; /* Espacio entre tarjetas */
+  flex: 0 0 280px;  
+  margin-right: 20px; 
 }
 
 .tutor-card:hover {
@@ -262,13 +256,9 @@ body {
   display: none;
 }
 
-
-/* Responsividad (Móvil) */
 @media (max-width: 900px) {
-  /* Ya no necesitamos la regla .tutores-grid aquí */
   
   .carousel-viewport {
-    /* Quitamos el difuminado en móvil */
     -webkit-mask-image: none;
     mask-image: none;
   }
@@ -279,5 +269,535 @@ body {
 
   .tutor-foto {
     height: 300px;
+  }
+}
+
+/* =======================
+   ESTILOS SECCIÓN PASO A PASO
+   ======================= */
+
+.pasos-guia {
+  background: #f9f9f9;
+  padding: 80px 40px;
+  text-align: center;
+}
+
+.titulo-seccion {
+  color: #222;
+  font-size: 2.5em;
+  margin: 0 0 16px;
+  font-weight: 700;
+}
+
+.pasos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  max-width: 1200px; 
+  margin: 0 auto;
+}
+
+.paso-card {
+  background: #fff; 
+  color: #222;
+  border-radius: 20px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.paso-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.paso-etiqueta {
+  background: #179ec6;
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.9em;
+  padding: 6px 14px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.paso-imagen {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.paso-card h3 {
+  font-size: 1.5em;
+  margin: 0 0 10px 0;
+  font-weight: 700;
+  color: #222;
+}
+
+.paso-card p {
+  font-size: 1em;
+  color: #555;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+/* --- Botones --- */
+
+.btn-naranja {
+  background: #f39c12; 
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 30px;
+  font-weight: bold;
+  font-size: 1.05em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-naranja:hover {
+  background: #e67e22;
+}
+
+/* --- Tarjeta CTA (Columna 4) --- */
+
+.paso-card.cta {
+  background: #026e94;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.paso-icono {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px auto;
+  object-fit: contain;
+  border-radius: 0;
+}
+
+.paso-card.cta h3 {
+  color: #fff;
+}
+
+.paso-card.cta p {
+  color: #e0eef8;
+}
+
+.btn-blanco {
+  background: #fff;
+  color: #185875;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 30px;
+  font-weight: bold;
+  font-size: 1.05em;
+  cursor: pointer;
+  transition: background .19s, color .2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-blanco:hover {
+  background: #185875;
+  color: #fff;
+}
+
+/* --- Responsividad --- */
+@media (max-width: 900px) {
+  .pasos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .paso-imagen {
+    height: 250px; 
+  }
+}
+
+/* =======================
+   ESTILOS CTA TUTORES (NUEVA CON ANIMACIÓN)
+   ======================= */
+
+.cta-tutores {
+  background: #fff; 
+  color: #222;   
+  padding: 60px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: 1200px; 
+  margin: 60px auto; 
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.cta-content {
+  flex: 1; 
+  max-width: 50%;
+}
+
+.cta-content .subtitulo-seccion {
+  text-align: left;
+}
+
+.cta-content .titulo-seccion {
+  text-align: left;
+  font-size: 2.2em;
+}
+
+.cta-content .descripcion-seccion {
+  text-align: left;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 30px;
+  max-width: 100%;
+}
+
+.btn-cta {
+  background: #179ec6;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 35px;
+  font-weight: bold;
+  font-size: 1.05em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-cta:hover {
+  background: #185875;
+}
+
+.cta-image-wrapper {
+  position: relative;
+  flex: 1;
+  max-width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 350px;
+}
+
+.cta-image-main {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.6s ease-in-out;
+  opacity: 0;
+  z-index: 0;
+  transform: translate(-50%, -50%) scale(0.8);
+}
+
+.cta-image-main.prev1 {
+  opacity: 1;
+  z-index: 2;
+  transform: translate(-50%, -50%) rotate(6deg) scale(0.95);
+}
+
+.cta-image-main.prev2 {
+  opacity: 1;
+  z-index: 1;
+  transform: translate(-50%, -50%) rotate(12deg) scale(0.9);
+}
+
+.cta-image-main.active {
+  opacity: 1;
+  z-index: 3;
+  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+}
+
+/* --- Responsividad CTA --- */
+@media (max-width: 900px) {
+  .cta-tutores {
+    flex-direction: column;
+    padding: 40px 20px;
+  }
+  .cta-content {
+    max-width: 100%;
+    text-align: center;
+  }
+  .cta-content .subtitulo-seccion,
+  .cta-content .titulo-seccion,
+  .cta-content .descripcion-seccion {
+    text-align: center;
+  }
+  .cta-image-wrapper {
+    max-width: 80%;
+    min-height: 300px; 
+    margin-top: 30px;
+  }
+}
+
+/* =======================
+   ESTILOS SECCIÓN APP CTA
+   ======================= */
+
+.app-cta {
+  background: #fff; 
+  color: #222; 
+  padding: 60px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: 1200px; 
+  margin: 60px auto; 
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.app-cta-content {
+  flex: 1; 
+  max-width: 50%;
+}
+
+.app-cta-content .subtitulo-seccion {
+  text-align: left;
+}
+
+.app-cta-content .titulo-seccion {
+  text-align: left;
+  font-size: 2.2em;
+}
+
+.app-cta-content .descripcion-seccion {
+  text-align: left;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 30px;
+  max-width: 100%;
+}
+
+/* Estilos para la lista de beneficios */
+.app-features {
+  list-style: none;
+  padding: 0;
+  margin: 30px 0;
+  text-align: left;
+}
+
+.app-features li {
+  display: flex;
+  align-items: center;
+  font-size: 1.1em;
+  font-weight: 500;
+  color: #222;
+  margin-bottom: 15px;
+}
+
+/* Estilo del ícono de check (check) */
+.app-features li::before {
+  content: '✓'; 
+  font-weight: bold;
+  color: #fff;
+  background: #179ec6; 
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.app-cta-image {
+  flex: 1;
+  max-width: 45%;
+  text-align: center;
+}
+
+.app-cta-image img {
+  max-width: 450px;
+  width: 100%;
+}
+
+/* --- Responsividad --- */
+@media (max-width: 900px) {
+  .app-cta {
+    flex-direction: column;
+    padding: 40px 20px;
+  }
+  .app-cta-content {
+    max-width: 100%;
+    text-align: center;
+  }
+  .app-cta-content .subtitulo-seccion,
+  .app-cta-content .titulo-seccion,
+  .app-cta-content .descripcion-seccion {
+    text-align: center;
+  }
+
+  .app-features {
+    display: inline-block;
+    margin: 30px auto;
+    text-align: left;
+  }
+  
+  .app-cta-image {
+    max-width: 80%;
+    margin-top: 30px;
+  }
+}
+
+/* =======================
+   ESTILOS SECCIÓN ALIANZAS
+   ======================= */
+
+.alianzas-section {
+  background: #f9f9f9;
+  padding: 80px 0; 
+  text-align: center;
+  overflow: hidden; 
+}
+
+.alianzas-section .subtitulo-seccion {
+  color: #000000;
+}
+
+.alianzas-section .titulo-seccion {
+  color: #185875;
+}
+
+.alianzas-section .descripcion-seccion {
+  color: #555;
+  opacity: 0.8;
+  margin-bottom: 60px; 
+}
+
+.alianzas-section .carousel-viewport {
+  max-width: 100%; 
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.logo-carousel-track {
+  display: flex;
+  align-items: center; 
+}
+
+/* Pausa la animación al pasar el cursor */
+.logo-carousel-track:hover {
+  animation-play-state: paused !important;
+}
+
+.logo-carousel-track img {
+  height: 100px; 
+  width: auto; 
+  margin: 0 40px;  
+  filter: grayscale(100%);
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.logo-carousel-track img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* =======================
+   ESTILOS SECCIÓN EVENTOS
+   ======================= */
+
+.eventos-section {
+  padding: 80px 40px;
+  text-align: center;
+}
+.eventos-section .subtitulo-seccion {
+  color: #179ec6;
+}
+
+.eventos-section .titulo-seccion {
+  color: #fff; 
+}
+
+.eventos-section .descripcion-seccion {
+  color: #e0eef8;
+  opacity: 0.9;
+  margin-bottom: 50px;
+}
+
+.eventos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.evento-card {
+  background: #102a3a;
+  border-radius: 20px; 
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  overflow: hidden;
+  border: 1px solid #185875; 
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.evento-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.evento-imagen {
+  width: 100%;
+  height: 270px; 
+  object-fit: cover;
+}
+
+.evento-info {
+  padding: 24px;
+}
+
+.evento-info h3 {
+  font-size: 1.5em;
+  margin: 0 0 15px 0;
+  font-weight: 700;
+  color: #fff; 
+}
+
+.evento-fecha {
+  display: flex;
+  align-items: center;
+  color: #e0eef8; 
+  font-weight: 500;
+  margin-bottom: 25px;
+}
+
+.evento-fecha::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f39c12; 
+  margin-right: 10px;
+}
+
+.evento-info .btn-blanco {
+  width: 100%; 
+  box-sizing: border-box; 
+  text-align: center;
+}
+
+/* --- Responsividad --- */
+@media (max-width: 900px) {
+  .eventos-grid {
+    grid-template-columns: 1fr;
   }
 }
