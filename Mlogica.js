@@ -8,7 +8,7 @@ document.getElementById('buscador').addEventListener('keypress', function(e) {
 // Máquina de escribir con borrado y cambio de palabras
 const palabras = [
   "Tutorías en Línea",
-  "Clases Personalizadas",
+  "Tutorías Personalizadas",
   "Éxito Académico"
 ];
 let palabraActual = 0;
@@ -40,54 +40,86 @@ function maquinaEscribir() {
   }
 }
 
-// --- Lógica del Carrusel de Tutores ---
+// --- LÓGICA DEL CARRUSEL DE TUTORES (REESCRITA PARA BOTONES) ---
 function setupTutorCarousel() {
   const track = document.querySelector('.carousel-track');
-  if (!track) return; // Si no hay carrusel, no hace nada
+  if (!track) return; 
 
+  const wrapper = document.querySelector('.carousel-wrapper');
+  if (!wrapper) return; 
+    
+  const btnPrev = wrapper.querySelector('.carousel-btn.prev');
+  const btnNext = wrapper.querySelector('.carousel-btn.next');
+  
   const cards = Array.from(track.children);
   const cardCount = cards.length;
-  if (cardCount === 0) return; // Si no hay tarjetas, no hace nada
+  if (cardCount === 0) return;
 
-  // 1. Clonamos las tarjetas para un loop infinito
+  // 1. Clonamos las tarjetas
   cards.forEach(card => {
     const clone = card.cloneNode(true);
     clone.setAttribute('aria-hidden', 'true');
     track.appendChild(clone);
   });
 
-  // 2. Leemos el ancho y margen de la tarjeta desde el CSS
+  // 2. Leemos el ancho de la tarjeta desde el CSS
   const cardStyle = window.getComputedStyle(cards[0]);
-  const cardWidth = parseFloat(cardStyle.flexBasis);
-  const cardGap = parseFloat(cardStyle.marginRight);
-  const cardTotalWidth = cardWidth + cardGap;
+  const cardWidth = parseFloat(cardStyle.flexBasis); // 280px
+  const cardGap = parseFloat(cardStyle.marginRight); // 20px
+  const cardStep = cardWidth + cardGap; // 300px
   
-  // 3. Calculamos anchos y duración
-  const totalWidth = cardTotalWidth * (cardCount * 2); // Ancho total (originales + clones)
-  const scrollWidth = cardTotalWidth * cardCount; // Ancho de las originales
-  const duration = cardCount * 3; // 3 segundos por tarjeta
+  let currentIndex = 0; // Empezamos al inicio
+  let isMoving = false; // Flag para evitar clicks dobles
+  const transitionTime = 400; // 400ms (debe coincidir con el CSS)
 
-  // 4. Inyectamos la animación en la página
-  const animationName = 'scroll';
-  const keyframes = `
-  @keyframes ${animationName} {
-    0% {
-      transform: translateX(0);
+  // 3. Listener para el botón SIGUIENTE
+  btnNext.addEventListener('click', () => {
+    if (isMoving) return;
+    isMoving = true;
+    
+    currentIndex++;
+    track.style.transform = `translateX(-${currentIndex * cardStep}px)`;
+    
+    // Lógica de loop infinito (cuando llega al inicio de los clones)
+    if (currentIndex === cardCount) {
+      setTimeout(() => {
+        track.style.transition = 'none'; // Sin animación
+        currentIndex = 0; // Vuelve al inicio
+        track.style.transform = `translateX(0)`;
+        track.offsetHeight; // Forzar repintado
+        track.style.transition = 'transform 0.4s ease-in-out';
+      }, transitionTime);
     }
-    100% {
-      transform: translateX(-${scrollWidth}px);
+
+    setTimeout(() => { isMoving = false; }, transitionTime);
+  });
+
+  // 4. Listener para el botón ANTERIOR
+  btnPrev.addEventListener('click', () => {
+    if (isMoving) return;
+    isMoving = true;
+
+    if (currentIndex === 0) {
+      // Si estamos al inicio, saltamos al final (a los clones)
+      track.style.transition = 'none';
+      currentIndex = cardCount; // Vamos al inicio de los clones
+      track.style.transform = `translateX(-${currentIndex * cardStep}px)`;
+      track.offsetHeight; // Forzar repintado
+      track.style.transition = 'transform 0.4s ease-in-out';
     }
-  }`;
 
-  const styleSheet = document.createElement("style");
-  styleSheet.type = "text/css";
-  styleSheet.innerText = keyframes;
-  document.head.appendChild(styleSheet);
+    // Retraso mínimo para que el "salto" se registre
+    setTimeout(() => {
+      currentIndex--;
+      track.style.transform = `translateX(-${currentIndex * cardStep}px)`;
+      setTimeout(() => { isMoving = false; }, transitionTime);
+    }, 50); // 50ms de retraso
+  });
 
-  // 5. Aplicamos los estilos y la animación al track
-  track.style.width = `${totalWidth}px`;
-  track.style.animation = `${animationName} ${duration}s linear infinite`;
+  // 5. YA NO INYECTAMOS LA ANIMACIÓN CSS. 
+  // La función termina aquí.
 }
+
 
 // --- Lógica del Carrusel de Imágenes CTA (NUEVA) ---
 function setupCtaCarousel() {
@@ -123,16 +155,6 @@ function setupCtaCarousel() {
   // Configura el intervalo para que rote cada 3 segundos
   setInterval(rotateImages, 3000); 
 }
-
-
-// --- Event Listener Principal ---
-// Llama a todas las funciones cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-  maquinaEscribir();
-  setupTutorCarousel(); 
-  setupCtaCarousel(); // <-- AÑADIDO
-  setupLogoCarousel();
-});
 
 // --- Lógica del Carrusel de Logos ---
 function setupLogoCarousel() {
@@ -195,3 +217,12 @@ function setupLogoCarousel() {
     firstLogo.onload = setupAnimation;
   }
 }
+
+// --- Event Listener Principal ---
+// Llama a todas las funciones cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+  maquinaEscribir();
+  setupTutorCarousel(); 
+  setupCtaCarousel(); 
+  setupLogoCarousel();
+});

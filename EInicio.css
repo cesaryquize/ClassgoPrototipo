@@ -170,17 +170,12 @@ body {
   max-width: 1199px; 
   margin: 0 auto;
   overflow: hidden; 
-  
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .carousel-track {
   display: flex;
-}
-
-.carousel-track:hover {
-  animation-play-state: paused !important;
+  /* MODIFICADO: Añadida transición para el clic */
+  transition: transform 0.4s ease-in-out;
 }
 
 /* --- ESTILOS DE LA TARJETA --- */
@@ -562,19 +557,21 @@ body {
 .app-cta-content {
   flex: 1; 
   max-width: 50%;
+  text-align: center;
 }
 
 .app-cta-content .subtitulo-seccion {
-  text-align: left;
+  text-align: center;
 }
 
 .app-cta-content .titulo-seccion {
-  text-align: left;
+  text-align: center;
   font-size: 2.2em;
 }
 
 .app-cta-content .descripcion-seccion {
-  text-align: left;
+  /* MODIFICADO: Centrado */
+  text-align: center;
   margin-left: 0;
   margin-right: 0;
   margin-bottom: 30px;
@@ -587,6 +584,8 @@ body {
   padding: 0;
   margin: 30px 0;
   text-align: left;
+  /* MODIFICADO: Centrado */
+  display: inline-block;
 }
 
 .app-features li {
@@ -614,14 +613,19 @@ body {
   flex-shrink: 0;
 }
 
+/* NUEVO: Margen para bajar el botón */
+.app-cta-content .btn-naranja {
+  margin-top: 15px;
+}
+
 .app-cta-image {
   flex: 1;
-  max-width: 45%;
+  max-width: 60%;
   text-align: center;
 }
 
 .app-cta-image img {
-  max-width: 450px;
+  max-width: 600px;
   width: 100%;
 }
 
@@ -665,16 +669,19 @@ body {
 }
 
 .alianzas-section .subtitulo-seccion {
-  color: #000000;
-}
-
-.alianzas-section .titulo-seccion {
+  /* MODIFICADO: Color de texto oscuro */
   color: #185875;
 }
 
+.alianzas-section .titulo-seccion {
+  /* MODIFICADO: Color de texto oscuro */
+  color: #222;
+}
+
 .alianzas-section .descripcion-seccion {
+  /* MODIFICADO: Color de texto oscuro */
   color: #555;
-  opacity: 0.8;
+  /* opacity: 0.8; */ /* Quitado */
   margin-bottom: 60px; 
 }
 
@@ -799,5 +806,205 @@ body {
 @media (max-width: 900px) {
   .eventos-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* =======================
+   ESTILOS NUEVO FOOTER
+   ======================= */
+
+.site-footer {
+  background: #185875;
+  color: #fff;
+  padding-top: 60px; 
+}
+
+.footer-main {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.footer-column {
+  flex: 1; 
+}
+
+.footer-column.brand {
+  flex-basis: 30%; 
+}
+
+.footer-logo {
+  height: 70px; 
+  margin-bottom: 20px;
+}
+
+.contact-info {
+  font-size: 0.95em;
+  color: #e0eef8; 
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-column.links h4 {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.footer-column.links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.footer-column.links ul li a {
+  color: #e0eef8; 
+  text-decoration: none;
+  display: block;
+  padding: 6px 0;
+  transition: color 0.2s;
+}
+
+.footer-column.links ul li a:hover {
+  color: #fff;
+}
+
+.footer-column.app h4 {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 0;
+}
+
+.footer-column.app p {
+  color: #e0eef8; 
+  margin-bottom: 20px;
+}
+
+.google-play-btn img {
+  width: 180px;
+  opacity: 0.9;
+  transition: opacity 0.2s;
+}
+
+.google-play-btn img:hover {
+  opacity: 1;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 40px;
+  margin-top: 40px;
+  border-top: 1px solid #36a8c6; 
+}
+
+.copyright {
+  color: #e0eef8; 
+  font-size: 0.9em;
+  margin: 0;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  color: #185875; 
+  border-radius: 50%;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1em;
+  transition: all 0.2s ease;
+}
+
+.social-icons a:hover {
+  background: #e0eef8; 
+  transform: scale(1.1);
+}
+
+/* --- Responsividad del Footer --- */
+@media (max-width: 900px) {
+  .footer-main {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .footer-column.brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .contact-info {
+    justify-content: center;
+  }
+
+  .footer-bottom {
+    flex-direction: column-reverse; 
+    gap: 20px;
+  }
+}
+
+/* =======================
+   ESTILOS BOTONES CARRUSEL (NUEVO)
+   ======================= */
+
+.carousel-wrapper {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); 
+  z-index: 10;
+  background: rgba(240, 240, 240, 0.9);
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 2.5em; 
+  line-height: 45px; 
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.2s;
+}
+
+.carousel-btn:hover {
+  opacity: 1;
+  background: #fff;
+}
+
+.carousel-btn.prev {
+  left: -25px; 
+}
+
+.carousel-btn.next {
+  right: -25px; 
+}
+
+@media (max-width: 900px) {
+  .carousel-btn {
+    display: none;
   }
 }
