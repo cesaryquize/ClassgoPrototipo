@@ -133,8 +133,66 @@ body {
     margin-top: 38px;
   }
 }
+
 /* =======================
-   ESTILOS TUTORES (Convertido en Carrusel)
+   RESPOSIVIDAD PARTE DE INICIO
+   ======================= */
+
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 20px 40px 20px;
+  }
+
+  .hero-content {
+    text-align: center;    
+    transform: translateY(0);
+    max-width: 95%;
+  }
+
+  .hero-img {
+    align-self: center;
+    margin-top: 38px;
+  }
+  .buttongroup {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-content h1 {
+    font-size: 2.2em;
+  }
+  .hero-content h1 span {
+    font-size: 1em;
+    min-width: 290px;
+  }
+}
+@media (max-width: 900px) {
+  
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    padding: 20px;
+  }
+
+  .navbar nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  .navbar .logo img[alt*="Mascota"] {
+    display: none; 
+  }
+
+  .navbar .lang {
+    display: none; 
+  }
+}
+
+
+/* =======================
+   ESTILOS TUTORES
    ======================= */
 
 .tutores-destacados {
@@ -963,7 +1021,7 @@ body {
 }
 
 /* =======================
-   ESTILOS BOTONES CARRUSEL (NUEVO)
+   ESTILOS BOTONES CARRUSEL
    ======================= */
 
 .carousel-wrapper {
@@ -1006,5 +1064,152 @@ body {
 @media (max-width: 900px) {
   .carousel-btn {
     display: none;
+  }
+}
+
+/* =======================
+   ESTILOS EVENTOS DE ALIANZAS
+   (Copia de la sección de Eventos)
+   ======================= */
+
+.alianzas-eventos-section {
+  padding: 80px 40px;
+  text-align: center;
+}
+.alianzas-eventos-section .subtitulo-seccion {
+  color: #179ec6;
+}
+
+.alianzas-eventos-section .titulo-seccion {
+  color: #fff; 
+}
+
+.alianzas-eventos-section .descripcion-seccion {
+  color: #e0eef8;
+  opacity: 0.9;
+  margin-bottom: 50px;
+}
+
+.alianzas-eventos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.alianza-evento-card {
+  background: #102a3a;
+  border-radius: 20px; 
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  overflow: hidden;
+  border: 1px solid #185875; 
+  transition: transform 0.2s, box-shadow 0.2s;
+  transform: translateY(30px); 
+  transition: transform 0.6s ease-out;
+}
+
+.alianza-evento-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.alianza-evento-imagen {
+  width: 100%;
+  height: 270px; 
+  object-fit: cover; 
+}
+
+.alianza-evento-info {
+  padding: 24px;
+}
+
+.alianza-evento-info h3 {
+  font-size: 1.5em;
+  margin: 0 0 15px 0;
+  font-weight: 700;
+  color: #fff; 
+}
+
+.alianza-evento-fecha {
+  display: flex;
+  align-items: center;
+  color: #e0eef8; 
+  font-weight: 500;
+  margin-bottom: 25px;
+}
+
+.alianza-evento-fecha::before {
+  /* Este es el punto de color */
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f39c12; 
+  margin-right: 10px;
+}
+
+.alianza-evento-info .btn-blanco {
+  width: 100%; 
+  box-sizing: border-box; 
+  text-align: center;
+}
+
+/* --- ANIMACIÓN DE ENTRADA (NUEVA VERSIÓN) --- */
+
+.alianza-evento-card.animate-in {
+  transform: translateY(0);
+}
+
+/* --- Responsividad (Igual que Eventos) --- */
+@media (max-width: 900px) {
+  .alianzas-eventos-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =======================
+   ESTILOS SECCIÓN CONTADOR
+   ======================= */
+
+.contador-section {
+  /* Usamos el mismo fondo que las otras secciones blancas */
+  background: #f9f9f9;
+  color: #222;
+  display: flex;
+  justify-content: space-evenly; /* Espacio entre los contadores */
+  align-items: center;
+  padding: 50px 40px;
+  text-align: center;
+  /* Una línea sutil para separarlo del hero */
+  border-top: 1px solid #e0e0e0;
+}
+
+.contador-item h2 {
+  font-size: 3em; /* Tamaño grande para el número */
+  font-weight: 700;
+  color: #185875; /* Color principal de tu marca */
+  margin: 0;
+  min-width: 120px; /* Evita que el layout "salte" mientras cuenta */
+}
+
+.contador-item p {
+  font-size: 1.1em;
+  color: #555;
+  margin: 5px 0 0 0;
+}
+
+/* --- Responsividad para el contador --- */
+@media (max-width: 768px) {
+  .contador-section {
+    flex-direction: column; /* Apila los contadores en móvil */
+    gap: 40px; /* Espacio entre ellos */
+    padding: 40px 20px;
+  }
+  
+  .contador-item h2 {
+    font-size: 2.5em;
   }
 }

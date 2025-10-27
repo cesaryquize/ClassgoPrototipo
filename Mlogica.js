@@ -115,44 +115,34 @@ function setupTutorCarousel() {
       setTimeout(() => { isMoving = false; }, transitionTime);
     }, 50); // 50ms de retraso
   });
-
-  // 5. YA NO INYECTAMOS LA ANIMACIÓN CSS. 
-  // La función termina aquí.
 }
 
 
 // --- Lógica del Carrusel de Imágenes CTA (NUEVA) ---
 function setupCtaCarousel() {
   const carousel = document.querySelector('.cta-image-wrapper');
-  if (!carousel) return; // Si no existe, no hace nada
+  if (!carousel) return; 
 
   const images = carousel.querySelectorAll('.cta-image-main');
-  if (images.length < 2) return; // Si hay menos de 2, no hay nada que rotar
+  if (images.length < 2) return; 
 
   let currentIndex = 0;
 
   function rotateImages() {
-    // Calcula los índices de la imagen actual, la anterior y la de más atrás
     const activeIndex = currentIndex;
     const prev1Index = (currentIndex - 1 + images.length) % images.length;
     const prev2Index = (currentIndex - 2 + images.length) % images.length;
 
-    // Quita todas las clases de todas las imágenes
     images.forEach(img => img.classList.remove('active', 'prev1', 'prev2'));
 
-    // Aplica las clases a las imágenes correctas
     images[activeIndex].classList.add('active');
     images[prev1Index].classList.add('prev1');
     images[prev2Index].classList.add('prev2');
 
-    // Avanza al siguiente índice para la próxima rotación
     currentIndex = (currentIndex + 1) % images.length;
   }
 
-  // Inicia la rotación la primera vez
   rotateImages();
-  
-  // Configura el intervalo para que rote cada 3 segundos
   setInterval(rotateImages, 3000); 
 }
 
@@ -165,15 +155,12 @@ function setupLogoCarousel() {
   const logoCount = logos.length;
   if (logoCount === 0) return;
 
-  // 1. Clonamos los logos para un loop infinito
   logos.forEach(logo => {
     const clone = logo.cloneNode(true);
     clone.setAttribute('aria-hidden', 'true');
     track.appendChild(clone);
   });
 
-  // 2. Leemos el ancho y margen del logo desde el CSS
-  // Esperamos a que la primera imagen cargue para tener su ancho
   const firstLogo = logos[0];
 
   const setupAnimation = () => {
@@ -183,12 +170,10 @@ function setupLogoCarousel() {
     const logoMarginRight = parseFloat(logoStyle.marginRight);
     const logoTotalWidth = logoWidth + logoMarginLeft + logoMarginRight;
 
-    // 3. Calculamos anchos y duración
     const totalWidth = logoTotalWidth * (logoCount * 2);
     const scrollWidth = logoTotalWidth * logoCount;
-    const duration = logoCount * 2.5; // 2.5 segundos por logo, un poco más rápido
+    const duration = logoCount * 2.5; 
 
-    // 4. Inyectamos la animación (con nombre nuevo)
     const animationName = 'scroll-logos';
     const keyframes = `
     @keyframes ${animationName} {
@@ -205,17 +190,93 @@ function setupLogoCarousel() {
     styleSheet.innerText = keyframes;
     document.head.appendChild(styleSheet);
 
-    // 5. Aplicamos los estilos y la animación al track
     track.style.width = `${totalWidth}px`;
     track.style.animation = `${animationName} ${duration}s linear infinite`;
   };
 
-  // Si la imagen ya cargó, corre. Si no, espera.
   if (firstLogo.complete) {
     setupAnimation();
   } else {
     firstLogo.onload = setupAnimation;
   }
+}
+
+// --- Lógica del Contador Animado ---
+function setupContadores() {
+  const contadorTutores = document.getElementById('contador-tutores');
+  const contadorEstudiantes = document.getElementById('contador-estudiantes');
+  const contadorUsuarios = document.getElementById('contador-usuario'); 
+  const contadorEnplaystore = document.getElementById('contador-playstore');
+  const seccion = document.querySelector('.contador-section');
+
+  if (!seccion || !contadorTutores || !contadorEstudiantes) return;
+
+  function animateCount(el, start, end, duration) {
+    let startTime = null;
+
+    const step = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const currentNumber = Math.floor(progress * (end - start) + start);
+
+      el.textContent = '+' + currentNumber;
+
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCount(contadorTutores, 0, 370, 1500); 
+        animateCount(contadorEstudiantes, 0, 441, 1500); 
+        animateCount(contadorUsuarios, 0, 811, 1500);
+        animateCount(contadorEnplaystore, 0, 4.5, 1500);
+
+        observer.unobserve(seccion);
+      }
+    });
+  }, { threshold: 0.1 }); 
+
+  observer.observe(seccion);
+}
+
+// --- FUNCIÓN DE ANIMACIÓN AL HACER SCROLL (PARA LAS TARJETAS) ---
+function setupScrollAnimation() {
+  
+  // 1. Selecciona todas las tarjetas
+  const cards = document.querySelectorAll('.alianza-evento-card');
+  
+  // Si no hay tarjetas, no hace nada
+  if (cards.length === 0) return;
+
+  // 2. Opciones del observador
+  const observerOptions = {
+    threshold: 0.1 // Se activa cuando el 10% de la tarjeta es visible
+  };
+
+  // 3. Función que se ejecuta cuando una tarjeta entra en pantalla
+  const observerCallback = (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Le añade la clase 'animate-in'
+        entry.target.classList.add('animate-in');
+        // Deja de observarla para que no se repita
+        observer.unobserve(entry.target);
+      }
+    });
+  };
+
+  // 4. Crea el observador
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+  // 5. Le dice al observador que vigile cada tarjeta
+  cards.forEach(card => {
+    observer.observe(card);
+  });
 }
 
 // --- Event Listener Principal ---
@@ -225,4 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setupTutorCarousel(); 
   setupCtaCarousel(); 
   setupLogoCarousel();
+  setupContadores();
+  setupScrollAnimation(); // <-- Aquí se llama a la función de la animación
 });
